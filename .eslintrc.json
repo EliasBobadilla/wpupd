@@ -1,0 +1,21 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "ignorePatterns": ["node_modules"],
+  "extends": ["eslint:recommended", "airbnb-base", "prettier"],
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
+  },
+  "plugins": ["prettier"],
+  "rules": {
+    "quotes": ["warn", "single", "avoid-escape"],
+    "prettier/prettier": ["error"]
+  }
+}

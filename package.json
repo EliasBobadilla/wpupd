@@ -1,12 +1,15 @@
 {
-  "name": "wallpaper-wpupd",
-  "version": "1.0.0",
+  "name": "@ebobadilla/wpupd",
+  "version": "1.0.1",
   "main": "index.js",
   "repository": "https://github.com/eliasbobadilla/wallhaven-fetch.git",
   "author": "Elías <elias.bobadilla@gmail.com>",
   "license": "MIT",
+  "bin": {
+    "wpupd": "./bin/wpupd"
+  },
   "scripts": {
-    "start": "node index.js"
+    "wpupd": "node index.js"
   },
   "dependencies": {
     "dotenv": "^10.0.0",

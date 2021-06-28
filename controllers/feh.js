@@ -1,8 +1,8 @@
 const shell = require('../utils/shell')
 
-class Gnome {
+class Feh {
   constructor() {
-    this.command = 'gsettings set org.gnome.desktop.background picture-uri'
+    this.command = 'feh --bg-fill'
   }
 
   /**
@@ -15,4 +15,4 @@ class Gnome {
   }
 }
 
-module.exports = Gnome
+module.exports = Feh

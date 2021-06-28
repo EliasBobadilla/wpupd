@@ -6,7 +6,7 @@ The config values from search images are in **~/<user>/.config/wpupd/config.json
 File example:
 
     {
-       "local":"/home/saile/Pictures/wallpapers",
+       "local":"/home/saile/pictures/wallpapers",
        "system":"gnome",
        "provider":"wallhaven",
        "misc":{

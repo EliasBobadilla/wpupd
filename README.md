@@ -1,1 +1,1 @@
-wallhaven-fetch
+wallpaper-wpupd

@@ -2,6 +2,7 @@ const log = require('log4js')
 const os = require('os')
 const Wallhaven = require('./providers/wallhaven')
 const Gnome = require('./controllers/gnome')
+const Feh = require('./controllers/feh')
 const Config = require('./config')
 const { download, getName } = require('./utils/image')
 
@@ -29,7 +30,7 @@ class Wallpaper {
         throw new Error(`You should configure "${WPUPD_CONFIG}" properly`)
       }
       this.provider = new Wallhaven(misc)
-      this.controller = new Gnome(misc)
+      this.controller = this.system === 'gnome' ? new Gnome() : new Feh()
     } catch (error) {
       logger.error(error)
     }

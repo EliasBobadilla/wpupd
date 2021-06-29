@@ -30,7 +30,7 @@ class Wallpaper {
         throw new Error(`You should configure "${WPUPD_CONFIG}" properly`)
       }
       this.provider = new Wallhaven(misc)
-      this.controller = this.system === 'gnome' ? new Gnome() : new Feh()
+      this.controller = system === 'gnome' ? new Gnome() : new Feh()
     } catch (error) {
       logger.error(error)
     }

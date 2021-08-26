@@ -12,14 +12,14 @@ function getPath(url, local) {
 function createConfig(configPath) {
   const defaultConfig = `
 {
-  "local": "/home/saile/pictures/wallpapers",
+  "local": "${os.homedir()}/Downloads",
   "system": "gnome",
   "provider": "wallhaven",
   "misc": {
     "resolution": [1600, 900],
     "ratios": [16, 9],
     "topic": "code geass",
-    "sfw": false
+    "sfw": true
   }
 }
   `;

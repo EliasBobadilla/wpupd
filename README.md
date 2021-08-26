@@ -2,7 +2,7 @@
 
 This application downloads one image from a selected **provider** (like hallhaven) and sets it as wallpaper.
 
-The config values from search images are in **~/<user>/.config/wpupd/config.json**
+The config values from search images are in **~<user>/.config/wpupd/config.json**
 File example:
 
     {

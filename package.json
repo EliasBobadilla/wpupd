@@ -9,17 +9,12 @@
     "wpupd": "./bin/wpupd"
   },
   "scripts": {
-    "wpupd": "node index.js"
+    "wpupd": "node index.js",
+    "test": "mocha --recursive src/test/*.js"
   },
   "dependencies": {
-    "dotenv": "^10.0.0",
-    "eslint": "^7.29.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
     "log4js": "^6.3.0",
     "node-fetch": "^2.6.1",
-    "prettier": "^2.3.2",
-    "prettier-plugin-jsdoc": "^0.3.23"
+    "standard": "^16.0.3"
   }
 }

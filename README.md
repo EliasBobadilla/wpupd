@@ -22,3 +22,25 @@ Example File:
 ```
 
 Also, there is a **wpupd.log** file in the same directory with the app journal
+
+## Installation
+
+To be able to use it in your entire system you have to install globally:
+
+```bash
+npm i -g @ebobadilla/wpupd
+```
+
+If you use yarn:
+
+```bash
+yarn global add @ebobadilla/wpupd
+```
+
+### Licence
+
+wpupd is licensed under the [MIT license](./LICENSE.md)
+
+```
+
+```

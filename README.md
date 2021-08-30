@@ -37,10 +37,10 @@ If you use yarn:
 yarn global add @ebobadilla/wpupd
 ```
 
+### Usage
+
+After install just run `wpupd`
+
 ### Licence
 
 wpupd is licensed under the [MIT license](./LICENSE.md)
-
-```
-
-```

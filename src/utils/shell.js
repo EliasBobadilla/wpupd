@@ -4,6 +4,9 @@ function getCommand (system) {
   switch (system) {
     case 'feh':
       return 'feh --bg-fill'
+    case 'windows':
+      console.log('Support for Windows is a WIP.')
+      process.exit(0)
     default:
       return 'gsettings set org.gnome.desktop.background picture-uri'
   }

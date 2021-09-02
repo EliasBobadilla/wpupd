@@ -3,8 +3,6 @@ const fs = require('fs')
 const fetch = require('node-fetch')
 const os = require('os')
 
-const WPUPD_CONFIG = '.config/wpupd/config.json'
-
 function getPath (url, local) {
   return path.join(local, path.basename(url))
 }
@@ -12,8 +10,8 @@ function getPath (url, local) {
 function createConfig (configPath) {
   const defaultConfig = `
 {
-  "local": "${path.join(os.homedir(),"Downloads")}",
-  "system": "feh",
+  "local": "${path.join(os.homedir(), 'Downloads')}",
+  "system": "${os.platform().includes('win') ? 'windows' : 'gnome'}",
   "provider": "wallhaven",
   "misc": {
     "resolution": [1600, 900],
@@ -28,16 +26,18 @@ function createConfig (configPath) {
 }
 
 async function getConfig () {
-  const configFile = path.join(os.homedir(),".config","wpupd","config.json")
+  const configFilePath = path.join(os.homedir(), '.config', 'wpupd', 'config.json')
 
-  if (!fs.existsSync(configFile)) {
-    createConfig(configFile)
+  if (!fs.existsSync(configFilePath)) {
+    createConfig(configFilePath)
   }
 
-  const config = await fs.promises.readFile(configFile, 'utf8')
+  const config = await fs.promises.readFile(configFilePath, 'utf8')
   const json = JSON.parse(config)
   const { local, system, provider } = json
-  if (!local || !system || !provider) { throw new Error(`The config file is wrong, check ${configFile}`) }
+  if (!local || !system || !provider) {
+    throw new Error(`The config file is wrong, check ${configFilePath}`)
+  }
   return json
 }
 

@@ -15,11 +15,17 @@ Example File:
   "misc": {
     "resolution": [1600, 900],
     "ratios": [16, 9],
-    "topic": "candy",
+    "topic": "Code Geass",
     "sfw": false
   }
 }
 ```
+
+## Config Values
+
+- `local`: Where to download images
+- `system`: It can be `gnome`,`windows` or `feh`
+- `provider`: It can be `wallhaven` or `unsplash`
 
 Also, there is a **wpupd.log** file in the same directory with the app journal
 

@@ -15,7 +15,7 @@ describe('Shell process', () => {
   it('get command for shell', () => {
     const command = getCommand(config.system, 'Test')
     expect(command).to.not.have.lengthOf(0)
-    expect(command).to.match(/(?:feh|rundll32|gnome)/)
+    expect(command).to.match(/feh|rundll32|gnome/)
   })
 
   it('set test wallpaper', () => {

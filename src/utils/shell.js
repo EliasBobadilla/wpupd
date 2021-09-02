@@ -6,7 +6,7 @@ function getCommand (system, path) {
     case 'feh':
       return `feh --bg-fill ${path}`
     case 'windows':
-      return `reg add "HKEY_CURRENT_USER\\Control Panel\\Desktop" /v Wallpaper /t REG_SZ /d ${path};Start-Sleep -s 10; rundll32.exe user32.dll, UpdatePerUserSystemParameters, 0, $false`
+      return `reg add "HKEY_CURRENT_USER\\Control Panel\\Desktop" /v Wallpaper /t REG_SZ /d /f ${path};Start-Sleep -s 10; rundll32.exe user32.dll, UpdatePerUserSystemParameters, 0, $false`
     case 'gnome':
       return `gsettings set org.gnome.desktop.background picture-uri ${path}`
     case 'default':

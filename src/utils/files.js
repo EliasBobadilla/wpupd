@@ -1,17 +1,28 @@
-const path = require('path')
-const fs = require('fs')
-const fetch = require('node-fetch')
-const os = require('os')
+const path = require("path");
+const fs = require("fs");
+const fetch = require("node-fetch");
+const os = require("os");
 
-function getPath (url, local) {
-  return path.join(local, path.basename(url))
+function getPath(url, local) {
+  return path.join(local, path.basename(url));
 }
 
-function createConfig (configPath) {
+/**
+ * @param {string} path
+ * @returns {string} The Windosifyed path
+ */
+function windosifyPath(path) {
+  return path.replace(/\\/g, "\\\\");
+}
+
+function createConfig(configPath) {
+  const whereToDowload = path.join(os.homedir(), "Downloads");
+  const isWindows = os.platform().includes("win");
+
   const defaultConfig = `
 {
-  "local": "${path.join(os.homedir(), 'Downloads')}",
-  "system": "${os.platform().includes('win') ? 'windows' : 'gnome'}",
+  "local": "${isWindows ? windosifyPath(whereToDowload) : whereToDowload}",
+  "system": "${isWindows ? "windows" : "gnome"}",
   "provider": "wallhaven",
   "misc": {
     "resolution": [1600, 900],
@@ -20,33 +31,38 @@ function createConfig (configPath) {
     "sfw": true
   }
 }
-  `
+  `;
 
-  fs.promises.writeFile(configPath, defaultConfig)
+  fs.promises.writeFile(configPath, defaultConfig);
 }
 
-async function getConfig () {
-  const configFilePath = path.join(os.homedir(), '.config', 'wpupd', 'config.json')
+async function getConfig() {
+  const configFilePath = path.join(
+    os.homedir(),
+    ".config",
+    "wpupd",
+    "config.json"
+  );
 
   if (!fs.existsSync(configFilePath)) {
-    createConfig(configFilePath)
+    createConfig(configFilePath);
   }
 
-  const config = await fs.promises.readFile(configFilePath, 'utf8')
-  const json = JSON.parse(config)
-  const { local, system, provider } = json
+  const config = await fs.promises.readFile(configFilePath, "utf8");
+  const json = JSON.parse(config);
+  const { local, system, provider } = json;
   if (!local || !system || !provider) {
-    throw new Error(`The config file is wrong, check ${configFilePath}`)
+    throw new Error(`The config file is wrong, check ${configFilePath}`);
   }
-  return json
+  return json;
 }
 
-async function getImage (url, local) {
-  const response = await fetch(url)
-  const buffer = await response.buffer()
-  const filePath = getPath(url, local)
-  await fs.promises.writeFile(filePath, buffer)
-  return filePath
+async function getImage(url, local) {
+  const response = await fetch(url);
+  const buffer = await response.buffer();
+  const filePath = getPath(url, local);
+  await fs.promises.writeFile(filePath, buffer);
+  return filePath;
 }
 
-module.exports = { getConfig, getImage }
+module.exports = { getConfig, getImage };

@@ -21,8 +21,7 @@ class Wallhaven {
       `${this.url}${this.topic}&purity=${this.purity}&atleast=${this.atleast}&ratios=${this.ratios}&sorting=random&colors=${this.color}`
     )
     const { data } = await result.json()
-    const random = Math.floor(Math.random() * data.length)
-    return data[random].path
+    return data[Math.floor(Math.random() * data.length)].path
   }
 }
 

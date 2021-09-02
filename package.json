@@ -6,7 +6,7 @@
   "author": "Elías <elias.bobadilla@gmail.com>",
   "license": "MIT",
   "bin": {
-    "wpupd": "./bin/wpupd"
+    "wpupd": "./src/cli.js"
   },
   "scripts": {
     "wpupd": "node index.js",

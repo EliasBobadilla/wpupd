@@ -12,7 +12,7 @@ function getPath (url, local) {
 function createConfig (configPath) {
   const defaultConfig = `
 {
-  "local": "${os.homedir()}/Downloads",
+  "local": "${path.join(os.homedir(),"Downloads")}",
   "system": "feh",
   "provider": "wallhaven",
   "misc": {
@@ -28,7 +28,7 @@ function createConfig (configPath) {
 }
 
 async function getConfig () {
-  const configFile = `${os.homedir()}/${WPUPD_CONFIG}`
+  const configFile = path.join(os.homedir(),".config","wpupd","config.json")
 
   if (!fs.existsSync(configFile)) {
     createConfig(configFile)

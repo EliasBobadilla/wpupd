@@ -6,20 +6,26 @@ const wpupd = require('./src/wpupd')
 
 log.configure({
   appenders: {
-    log: {
+    file: {
       type: 'file',
       filename: path.join(os.homedir(), '.config', 'wpupd', 'wpupd.log')
-    }
+    },
+    console: { type: 'console' }
   },
-  categories: { default: { appenders: ['log'], level: 'ALL' } }
+  categories: { default: { appenders: ['file', 'console'], level: 'ALL' } }
 })
+
+const logger = log.getLogger('default')
 
 async function init () {
   try {
-    console.log(`${await wpupd()} was set as wallpaper (^‿^)`)
-  } catch (err) {
-    console.error(`${err} (✖╭╮✖)`)
+    const image = await wpupd()
+    logger.info(`(^‿^)  ${image} was set as wallpaper`)
+  } catch (error) {
+    logger.error(error.message)
   }
 }
+
+if (process.env.NODE_ENV === 'Development') init().then()
 
 module.exports = init

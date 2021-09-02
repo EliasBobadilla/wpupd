@@ -2,15 +2,16 @@
   "name": "@ebobadilla/wpupd",
   "version": "1.1.0",
   "main": "index.js",
-  "repository": "https://github.com/eliasbobadilla/wallhaven-fetch.git",
+  "repository": "https://github.com/eliasbobadilla/wpupd.git",
   "author": "Elías <elias.bobadilla@gmail.com>",
   "license": "MIT",
   "bin": {
     "wpupd": "./src/cli.js"
   },
   "scripts": {
-    "wpupd": "node index.js",
-    "test": "mocha --recursive src/test/*.js"
+    "dev:linux": "export NODE_ENV=Development && node index.js",
+    "dev:windows": "set NODE_ENV=Development && node index.js",
+    "test": "mocha --recursive src/__test__/*.js"
   },
   "dependencies": {
     "log4js": "^6.3.0",

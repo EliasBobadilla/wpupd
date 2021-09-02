@@ -9,8 +9,7 @@ async function wpupd () {
   try {
     const config = await getConfig()
     const provider = new Wallhaven(config.misc)
-    const url = await provider.getWallpaper()
-    const image = await getImage(url, config.local)
+    const image = await getImage(await provider.getWallpaper(), config.local)
     await run(config.system, image)
     return image
   } catch (error) {

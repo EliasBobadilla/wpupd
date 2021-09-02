@@ -15,10 +15,18 @@ function fixWindowsPath (path) {
 
 /**
  * Method to create default config file
- * @param {string} configPath
- * @returns {Promise<void>}
+ * @returns {Promise<string>}
  */
-function createConfig (configPath) {
+async function getConfigFile () {
+  const filePath = path.join(
+    os.homedir(),
+    '.config',
+    'wpupd',
+    'config.json'
+  )
+
+  if (fs.existsSync(filePath)) return filePath
+
   const downloadPath = path.join(os.homedir(), 'Downloads')
   const isWindows = os.platform().includes('win')
 
@@ -37,7 +45,8 @@ function createConfig (configPath) {
 }
   `
 
-  return fs.promises.writeFile(configPath, defaultConfig)
+  await fs.promises.writeFile(filePath, defaultConfig)
+  return filePath
 }
 
 /**
@@ -45,21 +54,11 @@ function createConfig (configPath) {
  * @returns {Promise<object>}
  */
 async function getConfig () {
-  const configFilePath = path.join(
-    os.homedir(),
-    '.config',
-    'wpupd',
-    'config.json'
-  )
-
-  if (!fs.existsSync(configFilePath)) {
-    await createConfig(configFilePath)
-  }
-
+  const configFilePath = await getConfigFile()
   const config = await fs.promises.readFile(configFilePath, 'utf8')
   const json = JSON.parse(config)
   const { local, system, provider } = json
-  if (!local || !system || !provider) { throw new Error(`The config file is wrong, check ${configFilePath}`) }
+  if (!local || !system || !provider) { throw new Error(`Invalid config file, check ${configFilePath}`) }
   return json
 }
 
@@ -71,8 +70,11 @@ async function getConfig () {
  */
 async function getImage (url, local) {
   const filePath = path.join(local, path.basename(url))
-  await fs.promises.writeFile(filePath, await (await fetch(url)).buffer())
+  const response = await fetch(url)
+  const contentType = response.headers.get('Content-Type')
+  if (!contentType.includes('image')) throw new Error(`Error downloading file from ${url}`)
+  await fs.promises.writeFile(filePath, await response.buffer())
   return filePath
 }
 
-module.exports = { getConfig, getImage }
+module.exports = { getConfig, getImage, fixWindowsPath, getConfigFile }

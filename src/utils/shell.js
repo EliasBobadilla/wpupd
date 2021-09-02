@@ -31,4 +31,4 @@ const run = (system, path) =>
     shell: os.platform().includes('win') ? 'powershell.exe' : '/bin/bash'
   })
 
-module.exports = run
+module.exports = { run, getCommand }

@@ -9,13 +9,18 @@
     "wpupd": "./src/cli.js"
   },
   "scripts": {
-    "dev:linux": "export NODE_ENV=Development && node index.js",
-    "dev:windows": "set NODE_ENV=Development && node index.js",
-    "test": "mocha --recursive src/__test__/*.js"
+    "dev": "node src/cli.js",
+    "test": "nyc --reporter=text mocha --recursive src/test/*.js"
   },
   "dependencies": {
     "log4js": "^6.3.0",
     "node-fetch": "^2.6.1",
     "standard": "^16.0.3"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-fs": "^2.0.0",
+    "mocha": "^9.1.1",
+    "nyc": "^15.1.0"
   }
 }

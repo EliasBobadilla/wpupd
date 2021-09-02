@@ -1,6 +1,6 @@
 const Wallhaven = require('./providers/wallhaven')
 const { getConfig, getImage } = require('./utils/files')
-const run = require('./utils/shell')
+const { run } = require('./utils/shell')
 
 async function wpupd () {
   const config = await getConfig()

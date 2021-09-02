@@ -26,6 +26,4 @@ async function init () {
   }
 }
 
-if (process.env.NODE_ENV === 'Development') init().then()
-
 module.exports = init

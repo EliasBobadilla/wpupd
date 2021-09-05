@@ -16,7 +16,8 @@ Example File:
     "resolution": [1600, 900],
     "ratios": [16, 9],
     "topic": "Code Geass",
-    "sfw": false
+    "sfw": false,
+    "color": "FFA500"
   }
 }
 ```
@@ -34,13 +35,13 @@ Also, there is a **wpupd.log** file in the same directory with the app journal
 To be able to use it in your entire system you have to install globally:
 
 ```bash
-npm i -g @ebobadilla/wpupd
+npm i -g wpupd
 ```
 
 If you use yarn:
 
 ```bash
-yarn global add @ebobadilla/wpupd
+yarn global add wpupd
 ```
 
 ### Usage

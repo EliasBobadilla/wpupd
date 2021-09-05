@@ -12,7 +12,7 @@ function getCommand (system, path) {
     case 'feh':
       return `feh --bg-fill ${path}`
     case 'windows':
-      return `reg add "HKEY_CURRENT_USER\\Control Panel\\Desktop" /v Wallpaper /t REG_SZ /d /f ${path};Start-Sleep -s 10; rundll32.exe user32.dll, UpdatePerUserSystemParameters, 0, $false`
+      return `powershell.exe -file ${__dirname}/windows.ps1 "${path}"`
     case 'gnome':
       return `gsettings set org.gnome.desktop.background picture-uri ${path}`
     case 'default':
@@ -26,9 +26,11 @@ function getCommand (system, path) {
  * @param {string} path
  * @returns {Promise<string>}
  */
-const run = (system, path) =>
+const run = async (system, path) =>{
   shell(getCommand(system, path), {
     shell: os.platform().includes('win') ? 'powershell.exe' : '/bin/bash'
   })
+}
+  
 
 module.exports = { run, getCommand }

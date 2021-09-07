@@ -26,11 +26,10 @@ function getCommand (system, path) {
  * @param {string} path
  * @returns {Promise<string>}
  */
-const run = async (system, path) =>{
+const run = (system, path) => {
   shell(getCommand(system, path), {
     shell: os.platform().includes('win') ? 'powershell.exe' : '/bin/bash'
   })
 }
-  
 
 module.exports = { run, getCommand }

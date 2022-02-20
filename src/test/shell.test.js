@@ -18,10 +18,9 @@ describe('Shell process', () => {
     expect(command).to.match(/feh|rundll32|gnome/)
   })
 
-  it('set test wallpaper', () => {
-    return run(config.system, testPath).then((result) => {
+  it('set test wallpaper', () => run(config.system, testPath).then((result) => {
       const { stderr } = result
       expect(stderr).to.have.lengthOf(0)
     })
-  })
+  )
 })

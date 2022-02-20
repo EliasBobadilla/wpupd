@@ -1,19 +1,21 @@
 import { describe, before, it } from 'mocha'
 import { use, expect } from 'chai'
+
 import fs from 'chai-fs'
+
 import {
   getConfig,
   getImage,
   fixWindowsPath,
   getConfigFile
-} from '../utils/files'
+} from '../utils/files.js'
 
 use(fs)
 
 describe('Validate config values from config.json', () => {
   let config
-  const system = ['gnome', 'feh', 'windows']
-  const providers = ['wallhaven', 'unsplash']
+
+  const system = ['gnome', 'feh', 'windows'], providers = ['wallhaven', 'unsplash']
 
   before('get config', async () => {
     config = await getConfig()
@@ -35,23 +37,23 @@ describe('Validate config values from config.json', () => {
     expect(fixedPath).to.match(/(\\)/)
   })
 
-  it('get config file', () => {
-    return getConfigFile().then((file) => {
+  it('get config file', () => getConfigFile().then((file) => {
       expect(file).to.be.a.file()
     })
-  })
+  )
 })
 
 describe('Download image file from uri', () => {
   let config
+
   const uri = 'https://w.wallhaven.cc/full/z8/wallhaven-z8odwg.jpg'
+  
   before('get config', async () => {
     config = await getConfig()
   })
 
-  it('save image in local path', () => {
-    return getImage(uri, config.local).then((image) => {
+  it('save image in local path', () => getImage(uri, config.local).then((image) => {
       expect(image).to.be.a.file()
     })
-  })
+  )
 })

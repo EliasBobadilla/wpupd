@@ -1,7 +1,7 @@
 # WPUPD!
 
-Download one image from a **provider** (like
-WallHaven) and set it as wallpaper.
+Set as Wallpaper an image from a **provider** (like
+[WallHaven](https://wallhaven.cc) or [Unsplash](https://unsplash.com)).
 
 Example Config File 👇
 
@@ -22,17 +22,7 @@ Example Config File 👇
 }
 ```
 
-## Config Values
-
-- `local`: Where to download images
-- `system`: It can be `gnome`, `windows` or `feh`
-- `provider`: It can be `wallhaven`
-
-> By the moment `wallhaven` is the only provider accepted, but the API is really easy to extend, PR are welcome!
-
-Also, there is a **wpupd.log** file in the same directory with the app journal 😆
-
-## Installation
+### Installation
 
 ```bash
 npm i -g wpupd # yarn global add wpupd
@@ -43,6 +33,21 @@ npm i -g wpupd # yarn global add wpupd
 ```sh
 wpupd
 ```
+
+https://user-images.githubusercontent.com/71897736/154862672-88f54f66-59b6-41b8-be1e-47a9da2e8414.mp4
+
+## Config Values
+
+- `local`: Where to download images
+- `system`: It can be `gnome`, `windows` or `feh`
+- `provider`: `wallhaven`
+
+> By the moment `wallhaven` is the only provider accepted, but the API is really
+> easy to extend, PR are welcome!
+
+Also, there is a **wpupd.log** file in the same directory with the app journal 😆
+
+## Adding a Provider
 
 ### Licence
 

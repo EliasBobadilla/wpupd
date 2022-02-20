@@ -1,13 +1,29 @@
-import Wallhaven from './providers/wallhaven.js'
+import { existsSync } from 'fs'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+import untildify from 'untildify'
+
 import { getConfig, getImage } from './utils/files.js'
 import { run } from './utils/shell.js'
 
-import untildify from 'untildify'
+function getProvider (provider) {
+  const path = `${dirname(
+    fileURLToPath(import.meta.url)
+  )}/providers/${provider}.js`
+
+  if (!existsSync(path)) {
+    throw new Error(`Provider "${provider}" not found!`)
+  }
+
+  return import(path)
+}
 
 export default async function wpupd () {
   const config = await getConfig()
 
-  const provider = new Wallhaven(config.misc)
+  const { default: ProviderBuilder } = await getProvider(config.provider)
+
+  const provider = new ProviderBuilder(config.misc)
 
   const wallpaper = await provider.getWallpaper()
 

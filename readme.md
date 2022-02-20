@@ -49,6 +49,11 @@ Also, there is a **wpupd.log** file in the same directory with the app journal ð
 
 ## Adding a Provider
 
+You just need to a new file in [`providers/`](./src/providers/) ðŸ‘€
+
+Check the [Wallhaven configuration](./src/providers/wallhaven.js) file for reference,
+but to resume, you just need to export a default class with an async `getWallpaper` method.
+
 ### Licence
 
 wpupd is licensed under the [MIT license](./LICENSE.md).

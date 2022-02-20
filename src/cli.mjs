@@ -20,9 +20,8 @@ configure({
   categories: { default: { appenders: ['file', 'console'], level: 'ALL' } }
 })
 
-const logger = getLogger('default')
-
 async function init () {
+  const logger = getLogger('default')
   try {
     const image = await wpupd()
     logger.info(`(^‿^)  ${image} was set as wallpaper`)

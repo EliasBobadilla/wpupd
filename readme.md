@@ -1,11 +1,11 @@
 # WPUPD!
 
-This application downloads one image from a selected **provider** (like
-WallHaven) and sets it as wallpaper.
+Download one image from a **provider** (like
+WallHaven) and set it as wallpaper.
 
-The config values from search images are in \*`$HOME/.config/wpupd/config.json`\*\*
+Example Config File 👇
 
-Example File:
+> `~/.config/wpupd/config.json`
 
 ```json
 {
@@ -25,14 +25,14 @@ Example File:
 ## Config Values
 
 - `local`: Where to download images
-- `system`: It can be `gnome`,`windows` or `feh`
-- `provider`: It can be `wallhaven` or `unsplash`
+- `system`: It can be `gnome`, `windows` or `feh`
+- `provider`: It can be `wallhaven`
 
-Also, there is a **wpupd.log** file in the same directory with the app journal
+> By the moment `wallhaven` is the only provider accepted, but the API is really easy to extend, PR are welcome!
+
+Also, there is a **wpupd.log** file in the same directory with the app journal 😆
 
 ## Installation
-
-To be able to use it in your entire system you have to install globally:
 
 ```bash
 npm i -g wpupd # yarn global add wpupd
@@ -40,7 +40,9 @@ npm i -g wpupd # yarn global add wpupd
 
 ### Usage
 
-After install just run `wpupd`
+```sh
+wpupd
+```
 
 ### Licence
 

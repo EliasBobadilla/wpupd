@@ -16,11 +16,18 @@ export default class Wallhaven {
     this.color = color
   }
 
+  /**
+   * @returns {Promise<string>}
+   */
   async getWallpaper () {
     const result = await fetch(
       `${this.url}${this.topic}&purity=${this.purity}&atleast=${this.atLeast}&ratios=${this.ratios}&sorting=random&colors=${this.color}`
     )
+
     const { data } = await result.json()
-    return data[Math.floor(Math.random() * data.length)].path
+
+    const { path } = data[Math.floor(Math.random() * data.length)]
+
+    return path
   }
 }

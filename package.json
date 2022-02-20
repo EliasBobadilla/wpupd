@@ -5,11 +5,12 @@
   "repository": "https://github.com/eliasbobadilla/wpupd.git",
   "author": "Elías <elias.bobadilla@gmail.com>",
   "license": "MIT",
+  "type": "module",
   "bin": {
-    "wpupd": "./src/cli.js"
+    "wpupd": "./src/cli.mjs"
   },
   "scripts": {
-    "dev": "node src/cli.js",
+    "dev": "node src/cli.mjs",
     "lint": "standard",
     "test": "nyc --reporter=text mocha --recursive src/test/*.js"
   },

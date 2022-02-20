@@ -1,5 +1,8 @@
-const shell = require('util').promisify(require('child_process').exec)
-const os = require('os')
+import { exec } from "child_process";
+import { platform } from "os";
+import { promisify } from "util";
+
+const shell = promisify(exec);
 
 /**
  * Method to get custom command for shell
@@ -7,16 +10,16 @@ const os = require('os')
  * @param {string} path
  * @returns {string} command for shell
  */
-function getCommand (system, path) {
+function getCommand(system, path) {
   switch (system) {
-    case 'feh':
-      return `feh --bg-fill ${path}`
-    case 'windows':
-      return `powershell.exe -file ${__dirname}/windows.ps1 "${path}"`
-    case 'gnome':
-      return `gsettings set org.gnome.desktop.background picture-uri ${path}`
-    case 'default':
-      throw new Error('Bad Provider!')
+    case "feh":
+      return `feh --bg-fill ${path}`;
+    case "windows":
+      return `powershell.exe -file ${__dirname}/windows.ps1 "${path}"`;
+    case "gnome":
+      return `gsettings set org.gnome.desktop.background picture-uri ${path}`;
+    case "default":
+      throw new Error("Bad Provider!");
   }
 }
 
@@ -26,10 +29,8 @@ function getCommand (system, path) {
  * @param {string} path
  * @returns {Promise<string>}
  */
-const run = (system, path) => {
+export const run = (system, path) => {
   shell(getCommand(system, path), {
-    shell: os.platform().includes('win') ? 'powershell.exe' : '/bin/bash'
-  })
-}
-
-module.exports = { run, getCommand }
+    shell: platform().includes("win") ? "powershell.exe" : "/bin/bash",
+  });
+};

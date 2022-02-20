@@ -1,34 +1,29 @@
-const path = require('path')
-const fs = require('fs')
-const fetch = require('node-fetch')
-const os = require('os')
+import { join, basename } from 'path'
+import { existsSync, promises } from 'fs'
+import { homedir, platform } from 'os'
+
+import fetch from 'node-fetch'
 
 /**
- * Method to fix Windows path with double \
- *
+ * Fix Windows path with double "\"
  * @param {string} path
- * @returns {string} Fixed path for Windows
+ * @returns Fixed path for Windows
  */
-function fixWindowsPath (path) {
+export function fixWindowsPath (path) {
   return path.replace(/\\/g, '\\\\')
 }
 
 /**
- * Method to create default config file
- * @returns {Promise<string>}
+ * Create default config file
  */
-async function getConfigFile () {
-  const filePath = path.join(
-    os.homedir(),
-    '.config',
-    'wpupd',
-    'config.json'
-  )
+export async function getConfigFile () {
+  const filePath = join(homedir(), '.config', 'wpupd', 'config.json')
 
-  if (fs.existsSync(filePath)) return filePath
+  if (existsSync(filePath)) return filePath
 
-  const downloadPath = path.join(os.homedir(), 'Downloads')
-  const isWindows = os.platform().includes('win')
+  const downloadPath = join(homedir(), 'Downloads')
+
+  const isWindows = platform().includes('win')
 
   const defaultConfig = `
 {
@@ -45,36 +40,49 @@ async function getConfigFile () {
 }
   `
 
-  await fs.promises.writeFile(filePath, defaultConfig)
+  await promises.writeFile(filePath, defaultConfig)
+
   return filePath
 }
 
 /**
- * Method to get config info as json
- * @returns {Promise<object>}
+ * Get config info as JSON
  */
-async function getConfig () {
+export async function getConfig () {
   const configFilePath = await getConfigFile()
-  const config = await fs.promises.readFile(configFilePath, 'utf8')
+
+  const config = await promises.readFile(configFilePath, 'utf8')
+
   const json = JSON.parse(config)
+
   const { local, system, provider } = json
-  if (!local || !system || !provider) { throw new Error(`Invalid config file, check ${configFilePath}`) }
+
+  if (!local || !system || !provider) {
+    throw new Error(`Invalid config file, check ${configFilePath}`)
+  }
+
   return json
 }
 
 /**
- * Method to download one image from url and save it in local path
- * @param {string} url image uri
- * @param {string} local local path
- * @returns {Promise<string>} image path
+ * Download an image from URL and save it
+ * @param {string} url image URI
+ * @param {string} local Path
  */
-async function getImage (url, local) {
-  const filePath = path.join(local, path.basename(url))
+export async function getImage (url, local) {
+  const filePath = join(local, basename(url))
+
   const response = await fetch(url)
+
   const contentType = response.headers.get('Content-Type')
-  if (!contentType.includes('image')) throw new Error(`Error downloading file from ${url}`)
-  await fs.promises.writeFile(filePath, await response.buffer())
+
+  if (!contentType.includes('image')) {
+    throw new Error(`Error downloading file from ${url}`)
+  }
+
+  const data = await response.buffer()
+
+  await promises.writeFile(filePath, data)
+
   return filePath
 }
-
-module.exports = { getConfig, getImage, fixWindowsPath, getConfigFile }

@@ -1,23 +1,27 @@
-const log = require('log4js')
-const os = require('os')
-const path = require('path')
+#!/usr/bin/env node
 
-const wpupd = require('./src/wpupd')
+import log4js from 'log4js'
 
-log.configure({
+import { homedir } from 'os'
+import { join } from 'path'
+
+import wpupd from './wpupd.js'
+
+const { configure, getLogger } = log4js
+
+configure({
   appenders: {
     file: {
       type: 'file',
-      filename: path.join(os.homedir(), '.config', 'wpupd', 'wpupd.log')
+      filename: join(homedir(), '.config', 'wpupd', 'wpupd.log')
     },
     console: { type: 'console' }
   },
   categories: { default: { appenders: ['file', 'console'], level: 'ALL' } }
 })
 
-const logger = log.getLogger('default')
-
 async function init () {
+  const logger = getLogger('default')
   try {
     const image = await wpupd()
     logger.info(`(^‿^)  ${image} was set as wallpaper`)
@@ -26,4 +30,4 @@ async function init () {
   }
 }
 
-module.exports = init
+init()

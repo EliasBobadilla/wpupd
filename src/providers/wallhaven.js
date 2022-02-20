@@ -1,6 +1,6 @@
-const fetch = require('node-fetch')
+import fetch from 'node-fetch'
 
-class Wallhaven {
+export default class Wallhaven {
   constructor ({
     resolution = [1600, 900],
     ratios = [16, 9],
@@ -9,20 +9,25 @@ class Wallhaven {
     color = '000000'
   }) {
     this.url = 'https://wallhaven.cc/api/v1/search?q='
-    this.atleast = `${resolution[0]}x${resolution[1]}`
+    this.atLeast = `${resolution[0]}x${resolution[1]}`
     this.ratios = `${ratios[0]}x${ratios[1]}`
     this.purity = sfw ? '100' : '000'
     this.topic = topic
     this.color = color
   }
 
+  /**
+   * @returns {Promise<string>}
+   */
   async getWallpaper () {
     const result = await fetch(
-      `${this.url}${this.topic}&purity=${this.purity}&atleast=${this.atleast}&ratios=${this.ratios}&sorting=random&colors=${this.color}`
+      `${this.url}${this.topic}&purity=${this.purity}&atleast=${this.atLeast}&ratios=${this.ratios}&sorting=random&colors=${this.color}`
     )
+
     const { data } = await result.json()
-    return data[Math.floor(Math.random() * data.length)].path
+
+    const { path } = data[Math.floor(Math.random() * data.length)]
+
+    return path
   }
 }
-
-module.exports = Wallhaven

@@ -1,10 +1,14 @@
-const { describe, before, it } = require('mocha')
-const chai = require('chai')
-const expect = require('chai').expect
-const fs = require('chai-fs')
-const { getConfig, getImage, fixWindowsPath, getConfigFile } = require('../utils/files')
+import { describe, before, it } from 'mocha'
+import { use, expect } from 'chai'
+import fs from 'chai-fs'
+import {
+  getConfig,
+  getImage,
+  fixWindowsPath,
+  getConfigFile
+} from '../utils/files'
 
-chai.use(fs)
+use(fs)
 
 describe('Validate config values from config.json', () => {
   let config
@@ -32,7 +36,7 @@ describe('Validate config values from config.json', () => {
   })
 
   it('get config file', () => {
-    return getConfigFile().then(file => {
+    return getConfigFile().then((file) => {
       expect(file).to.be.a.file()
     })
   })
@@ -46,7 +50,7 @@ describe('Download image file from uri', () => {
   })
 
   it('save image in local path', () => {
-    return getImage(uri, config.local).then(image => {
+    return getImage(uri, config.local).then((image) => {
       expect(image).to.be.a.file()
     })
   })

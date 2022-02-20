@@ -58,7 +58,9 @@ async function getConfig () {
   const config = await fs.promises.readFile(configFilePath, 'utf8')
   const json = JSON.parse(config)
   const { local, system, provider } = json
-  if (!local || !system || !provider) { throw new Error(`Invalid config file, check ${configFilePath}`) }
+  if (!local || !system || !provider) {
+    throw new Error(`Invalid config file, check ${configFilePath}`)
+  }
   return json
 }
 
@@ -72,7 +74,9 @@ async function getImage (url, local) {
   const filePath = path.join(local, path.basename(url))
   const response = await fetch(url)
   const contentType = response.headers.get('Content-Type')
-  if (!contentType.includes('image')) throw new Error(`Error downloading file from ${url}`)
+  if (!contentType.includes('image')) {
+    throw new Error(`Error downloading file from ${url}`)
+  }
   await fs.promises.writeFile(filePath, await response.buffer())
   return filePath
 }

@@ -19,8 +19,8 @@ describe('Shell process', () => {
   })
 
   it('set test wallpaper', () => run(config.system, testPath).then((result) => {
-      const { stderr } = result
-      expect(stderr).to.have.lengthOf(0)
-    })
+    const { stderr } = result
+    expect(stderr).to.have.lengthOf(0)
+  })
   )
 })
